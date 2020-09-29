@@ -14,8 +14,14 @@ namespace SnakesLaddersGame
         {
             Console.WriteLine("Welcome to snakes and ladders game \nEnter player name");
             string player1 = Console.ReadLine();
-            int playerPosition = START_POINT;
-            Console.WriteLine("Current Position : " + playerPosition);
+            int diceRoll = DiceRoll();
+            Console.WriteLine("Dice Roll : " + diceRoll);
+        }
+         static int DiceRoll()
+        {
+            Random random = new Random();
+            int diceNumber = random.Next(1, 7);
+            return diceNumber;
         }
     }
 }
