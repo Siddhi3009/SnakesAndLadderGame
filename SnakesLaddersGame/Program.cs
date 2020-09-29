@@ -16,23 +16,28 @@ namespace SnakesLaddersGame
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to snakes and ladders game \nEnter player name");
+            Console.WriteLine("Welcome to snakes and ladders game \nEnter players name");
             string player1 = Console.ReadLine();
-            int playerCurrentPosition = START_POINT;
-            for (int noOfTimesDiceRolled = 1; playerCurrentPosition < 100; noOfTimesDiceRolled++)
+            string player2 = Console.ReadLine();
+            Console.WriteLine(player1 + " playing");
+            int score1 = Score();
+            Console.WriteLine(player1 + " score: " + score1);
+            Console.ReadLine();
+            Console.WriteLine(player2 + " playing");
+            int score2 = Score();
+            Console.WriteLine(player2 + " score: " + score2);
+            Console.ReadLine();
+            if (score1 > score2)
             {
-                int diceRoll = DiceRoll();
-                Console.WriteLine("You rolled: " + diceRoll);
-                playerCurrentPosition = PlayerMovement(diceRoll, playerCurrentPosition);
-                Console.WriteLine("Your position: " + playerCurrentPosition);
-                if (playerCurrentPosition == 100)
-                {
-                    Console.WriteLine("No. of times die rolled: " + noOfTimesDiceRolled);
-                    Console.WriteLine("Game Over");
-                    break;
-                }
-                Console.WriteLine("No. of times die rolled: " + noOfTimesDiceRolled);
-                Console.ReadLine();
+                Console.WriteLine(player2 + " Won!");
+            }
+            else if (score2 > score1)
+            {
+                Console.WriteLine(player1 + " Won");
+            }
+            else
+            {
+                Console.WriteLine("Its a tie");
             }
         }
         static int DiceRoll()
@@ -41,7 +46,6 @@ namespace SnakesLaddersGame
             int diceNumber = random.Next(1, 7);
             return diceNumber;
         }
-
         static int PlayerMovement(int numberRolled, int playerPosition)
         {
             Random random = new Random();
@@ -74,6 +78,45 @@ namespace SnakesLaddersGame
                         break;
             }
             return playerPosition;
+        }
+        static int Score()
+        {
+            int position = 0;
+            int noOfTimesDiceRolled = 0;
+            while (position != 100)
+            {
+                int playerCurrentPosition = START_POINT;
+                for (noOfTimesDiceRolled = 1; playerCurrentPosition < 100; noOfTimesDiceRolled++)
+                {
+                    int diceRoll = DiceRoll();
+                    Console.WriteLine("You rolled: " + diceRoll);
+                    int playerPreviousPosition = playerCurrentPosition;
+                    playerCurrentPosition = PlayerMovement(diceRoll, playerCurrentPosition);
+                    Console.WriteLine("Your position: " + playerCurrentPosition);
+                    if (playerPreviousPosition < playerCurrentPosition)
+                    {
+                        if (playerCurrentPosition != 100)
+                        {
+                            noOfTimesDiceRolled--;
+                            Console.WriteLine("Roll Again");
+                            continue;
+                        }
+                        else
+                            continue;
+                    }
+                    if (playerCurrentPosition == 100)
+                    {
+                        Console.WriteLine("No. of times die rolled: " + noOfTimesDiceRolled);
+                        Console.WriteLine("Game Over");
+                        break;
+                    }
+                    Console.WriteLine("No. of times die rolled: " + noOfTimesDiceRolled);
+                    Console.WriteLine("\nNext Roll");
+                    Console.ReadLine();
+                }
+                position = playerCurrentPosition;
+            }
+            return noOfTimesDiceRolled-1; 
         }
     }
 }
