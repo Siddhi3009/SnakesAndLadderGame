@@ -19,7 +19,7 @@ namespace SnakesLaddersGame
             Console.WriteLine("Welcome to snakes and ladders game \nEnter player name");
             string player1 = Console.ReadLine();
             int playerCurrentPosition = START_POINT;
-            for (int noOfTimesDiceRolled = 1; playerCurrentPosition <= 100; noOfTimesDiceRolled++)
+            for (int noOfTimesDiceRolled = 1; playerCurrentPosition < 100; noOfTimesDiceRolled++)
             {
                 int diceRoll = DiceRoll();
                 Console.WriteLine("You rolled: " + diceRoll);
